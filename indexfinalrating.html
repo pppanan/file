@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Cost of Green</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/mapbox/assembly/publisher-staging/src/svgs/mapbox.svg">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Karla', sans-serif;
+      background: url('./asset/Background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      background-blend-mode: lighten;
+      background-color: rgba(247, 249, 250, 0.7);
+    }
+
+    /* 统一导航栏样式 */
+    .topnav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+    }
+
+    .topnav a {
+      padding: 14px 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .topnav a.active {
+      color: #0071bc;
+    }
+
+    /* 首页 Hero 部分 */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 0 5%;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #6ab7b3;
+      color: white;
+      font-size: 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #5ca3a0;
+    }
+
+    /* 简单渐现动画 */
+    .fade-item {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    .item-1 { animation-delay: 0.2s; }
+    .item-2 { animation-delay: 0.6s; }
+    .item-3 { animation-delay: 1s; }
+    .item-4 { animation-delay: 1.4s; }
+    .item-5 { animation-delay: 1.8s; }
+    .item-6 {animation-delay:2.2s;}
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 顶部导航栏 -->
+<div class="topnav">
+  <a class="active" href="index.html">Home</a>
+  <a href="story.html">NYC Rental Price Map</a>
+  <a href="greenspace.html">NYC Greenspace Inequity</a>
+  <a href="comparison.html">Comparison and Conclusion</a>
+  <a href="src/index2.html">Parks Opening Hour Map</a>
+  <a href="indexfinalrating.html">Parks Rating Map</a>
+  <a href="crowdsourcing.html">Crowdsourcing</a>
+</div>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Park Ratings Filter</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .sidebar {
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      max-width: 220px;
+      font-family: Arial, sans-serif;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    .sidebar button {
+      display: block;
+      width: 100%;
+      margin: 4px 0;
+      padding: 6px 10px;
+      border: none;
+      background-color: #eee;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .sidebar button:hover {
+      background-color: #ddd;
+    }
+  </style>
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    .menu {
+      position: absolute;
+      background: white;
+      padding: 10px;
+      z-index: 1;
+    }
+    .menu button {
+      margin: 2px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="sidebar">
+  <h3>Park Ratings</h3>
+  <p>Select rating range:</p>
+  <button onclick="filterByRange(0, 3.5)">0–3.5</button>
+  <button onclick="filterByRange(3.6, 4.0)">3.6–4.0</button>
+  <button onclick="filterByRange(4.1, 4.3)">4.1–4.3</button>
+  <button onclick="filterByRange(4.4, 4.7)">4.4–4.7</button>
+  <button onclick="filterByRange(4.8, 5.0)">4.8–5.0</button>
+
+</div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoicGFucGFubm4iLCJhIjoiY204eTVoOHBkMGM4bDJxcXgwaGs0MWI2YSJ9.O0A9unCb7Vfo2w_tN7cuxQ';
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/light-v11',
+  center: [-74.006, 40.7128], // NYC
+  zoom: 10
+});
+
+
+map.on('load', () => { 
+  map.addSource('parks', {
+    type: 'geojson',
+    data: './geojson/parkratings2.geojson'  
+  });
+
+  map.addLayer({
+    id: 'parks-heat',
+    type: 'heatmap',
+    source: 'parks',
+    maxzoom: 15,
+    paint: {
+  
+      'heatmap-weight': [
+        'interpolate',
+        ['linear'],
+        ['get', 'Rating'],
+        0, 0,
+        5, 1
+      ],
+      'heatmap-intensity': 1,
+      'heatmap-radius': 12,
+      'heatmap-opacity': 0.9,
+      'heatmap-color': [
+        'interpolate',
+        ['linear'],
+        ['heatmap-density'],
+        0, 'rgba(33,102,172,0)',
+        0.2, '#fef001',
+        0.4, '#fcae3d',
+        0.6, '#fb6b4c',
+        0.8, '#e34a6f',
+        1, '#99004c'
+      ]
+    }
+  });
+
+  filterByRange(0, 5.0);
+});
+
+function filterByRange(min, max) {
+  map.setFilter('parks-heat', [
+    'all',
+    ['>=', ['get', 'Rating'], min],
+    ['<=', ['get', 'Rating'], max]
+  ]);
+}
+</script>
+</body>
+</html>`

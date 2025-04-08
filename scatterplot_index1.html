@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NYC Dashboard</title>
+
+  <!-- 引入 Plotly.js 和 htmlwidgets.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/htmlwidgets/1.5.1/htmlwidgets.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f7f9fa;
+    }
+  
+    .container {
+      position: relative;
+    }
+  
+    .sidebar {
+      position: fixed;
+      top: 200px;
+      left: 90px;
+      width: 460px;
+      background-color:rgba(255, 255, 255, 0.6);
+      padding: 20px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      display: none;
+      z-index: 1000;
+    }
+  
+    .sidebar img {
+      width: auto;
+      max-width: 80%;     /* 防止超出容器 */
+      height: auto;        /* 等比例缩放 */
+      display: block;
+      margin: 0 auto 12px auto;  /* 居中并留点底部空隙 */
+      border-radius: 5px;
+    }
+
+  
+    .sidebar h2 {
+      color: #2c3e50;
+    }
+  
+    .sidebar p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+    }
+  
+    .content {
+      width: 100%;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+  
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+  
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="sidebar sidebar1">
+  <p><strong>Chapter 1:</strong> Park ratings vs resale price</p>
+  <img src="asset/my_plot1.png" alt="Plot 1" style="width:100%;">
+</div>
+
+<div class="sidebar sidebar2">
+  <p><strong>Chapter 2:</strong> Park service area vs resale price</p>
+  <img src="asset/my_plot2.png" alt="Plot 2" style="width:100%;">
+</div>
+
+<!-- Chapter 1 内容区域 -->
+<div class="chapter" id="chapter1">
+  <div class="content">
+    <iframe src="scatterplot1.html"></iframe>
+  </div>
+</div>
+
+<!-- Chapter 2 内容区域 -->
+<div class="chapter" id="chapter2">
+  <div class="content">
+    <iframe src="scatterplot2.html"></iframe>
+  </div>
+</div>
+  <script>
+    window.addEventListener("scroll", function () {
+      const ch1 = document.getElementById("chapter1").getBoundingClientRect().top;
+      const ch2 = document.getElementById("chapter2").getBoundingClientRect().top;
+
+      const sidebar1 = document.querySelector(".sidebar1");
+      const sidebar2 = document.querySelector(".sidebar2");
+
+      sidebar1.style.display = "none";
+      sidebar2.style.display = "none";
+
+      if (ch1 <= 200 && ch2 > 200) {
+        sidebar1.style.display = "block";
+      } else if (ch2 <= 200) {
+        sidebar2.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

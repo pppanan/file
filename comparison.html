@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>From Parks to Prices: Greenspace Inequity</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<!-- 样式和字体 -->
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+/* ------- 背景 ------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Karla', sans-serif;
+}
+
+/* ------- 顶部导航 ------- */
+.topnav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.topnav a {
+    padding: 14px 20px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.topnav a.active {
+    color: #0071bc;
+}
+
+/* ------- 渐现动画 ------- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+/* ------- 引导标题区域 ------- */
+#header {
+    padding: 100px 20px 60px 20px;
+    margin-top: 80px;
+    margin-bottom: 40px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#header h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+#header h2 {
+    font-size: 22px;
+    font-weight: 400;
+    color: #555;
+}
+
+/* ------- 主体章节 ------- */
+.chapter {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 50px auto;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap:nowrap;
+}
+
+
+iframe {
+    width: 58%;
+    height: 80vh;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.analysis-box {
+    width: 30%;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-size: 16px;
+}
+
+.analysis-box h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.analysis-box p {
+    color: #555;
+    line-height: 1.8;
+}
+
+.analysis-card {
+    width: 38%;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 25px 30px;
+    gap: 20px;
+}
+
+.analysis-box {
+    padding: 0; /* 已经被 .analysis-card 包起来，不需要额外 padding */
+    border: none;
+    box-shadow: none;
+    background: none;
+    width: 100%;
+}
+
+.side-iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    background: white;
+}
+
+
+
+/* ------- 最后建议区 ------- */
+.final-suggestion {
+    background: rgba(240, 248, 255, 0.9);
+    padding: 70px 30px;
+    margin: 80px auto;
+    border-radius: 16px;
+    width: 80%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.final-suggestion h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.final-suggestion h2::before {
+    content: "🏛️ ";
+    font-size: 28px;
+}
+
+.final-suggestion p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- 顶部导航栏 -->
+<div class="topnav">
+    <a href="index.html">Home</a>
+    <a href="story.html">NYC Rental Price Map</a>
+    <a href="greenspace.html">NYC Greenspace Inequity</a>
+    <a href="src/index2.html">Parks Opening Hour Map</a>
+    <a href="indexrate2.html">Parks Rating Map</a>
+    <a class="active" href="comparison.html">Comparison and Conclusion</a>
+    <a href="crowdsourcing.html">Crowdsourcing</a>
+  </div>
+
+<!-- 引导标题 -->
+<div id="header" class="fade-in">
+    <h1>From Parks to Prices: Greenspace Inequity</h1>
+    <h2><strong>Relating Housing Price to Greenspace Access and Quality</strong></h2>
+</div>
+
+<!-- 第一张图 -->
+<div class="chapter fade-in" id="chapter1">
+
+    <!-- 左边地图 -->
+    <iframe src="ratinggroup.html"></iframe>
+
+    <!-- 右侧：统一分析卡片 -->
+    <div class="analysis-card">
+        <div class="analysis-box">
+            <h3>Findings: Park Ratings vs Housing Price</h3>
+            <p>Districts with higher housing prices tend to enjoy higher park ratings. Conversely, many lower-priced areas suffer from relatively poor park satisfaction, highlighting a spatial disparity in greenspace quality. Additionally, we identified two districts in Manhattan where high housing prices coexist with low park ratings. These areas are located near Central Park and, despite being adjacent to high-quality green resources, the internal greenspace quality of the districts themselves still needs further improvement.
+                Findings: Park Accessibility vs Housing Prices</p>
+        </div>
+        <iframe class="side-iframe" src="scatterplot1.html"></iframe>
+    </div>
+
+</div>
+
+
+  
+  
+
+<!-- 第二张图 -->
+<div class="chapter fade-in" id="chapter2">
+   <!-- 左边地图 -->
+   <iframe src="servicegroup.html"></iframe>
+    <div class="analysis-card">
+      <div class="analysis-box">
+        <h3>Findings: Park Accessibility vs Housing Price</h3>
+        <p>Accessibility to green spaces is unequally distributed. High-income neighborhoods are generally better served by park service areas, while lower-income districts often fall below average—revealing systemic spatial inequities. However, in the Bronx and Brooklyn, we observed some districts with lower rental prices yet higher park service rates, suggesting a more balanced green space distribution where residents can reach parks within walking distance. In contrast, districts like BX10 and QE08 exhibit high rental prices but low park service rates, indicating underserved areas despite their higher housing costs.</p>
+      </div>
+      <iframe class="side-iframe" src="scatterplot2.html"></iframe>
+    </div>
+  </div>
+  
+
+<!-- 最后政策建议 -->
+<div class="final-suggestion fade-in">
+    <h2>Policy Recommendations</h2>
+    <p>To promote a more equitable city, it is essential for New York City to invest in upgrading greenspaces in underserved areas. This includes enhancing park facilities, increasing park accessibility, and involving local communities in the planning and management of urban green infrastructure.</p>
+</div>
+
+<!-- 动画控制 -->
+<script>
+window.addEventListener('scroll', function() {
+    const elements = document.querySelectorAll('.fade-in');
+    elements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 50) {
+            el.classList.add('visible');
+        }
+    });
+});
+</script>
+
+</body>
+</html>
