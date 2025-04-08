@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Javascript</title>
+</head>
+
+<body>
+    <!-- Other HTML code goes here -->
+    <p id="myText"> This is the text</p>
+    <button onclick="changeColor()">change color</button>
+    <button onclick="changeText()">change text</button>
+    <button onclick="goback()">go back</button>
+
+    <script>
+
+        //console.log("Hello World");
+
+        const car = {
+            make: 'Toyota',
+            model: 'Camry'
+        };
+
+        //console.log(car.hasOwnProperty('make')); // Output: true
+        //console.log(car.hasOwnProperty('color')); // Output: false
+
+        const name = "Alice";
+        const age = 25;
+        const message = `My name is ${name} and I am ${age} years old.`;
+        //console.log(message);
+
+        function changeColor() {
+            document.getElementById("myText").style.color = 'red';
+        //    console.log(document.getElementById("myText").style.color);
+        }
+
+        function changeText() {
+            document.getElementById("myText").innerText = "This is some new text";
+        }
+
+        var orgText = document.getElementById("myText").innerHTML;
+        //console.log(orgText);
+        
+        function goback() {
+//            console.log(document.getElementById("myText").style.color);
+            document.getElementById("myText").style.color = 'black';
+//            console.log(document.getElementById("myText").style.color);
+            
+            document.getElementById("myText").innerText = orgText;
+
+        }
+
+    </script>
+</body>
+
+</html>
